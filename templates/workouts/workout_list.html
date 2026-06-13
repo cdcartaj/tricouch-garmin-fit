@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between">
+
+    <h2>Workouts</h2>
+
+    <a href="{% url 'workout_create' %}"
+       class="btn btn-primary">
+
+        Nuevo Workout
+
+    </a>
+
+</div>
+
+<table class="table mt-3">
+
+    <thead>
+
+        <tr>
+
+            <th>Nombre</th>
+            <th>Deporte</th>
+            <th>Fecha</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for workout in workouts %}
+
+        <tr>
+
+            <td>{{ workout.nombre }}</td>
+
+            <td>{{ workout.get_deporte_display }}</td>
+
+            <td>{{ workout.fecha_creacion }}</td>
+
+            <td>
+                <a href="{% url 'workout_detail' workout.id %}">
+                    {{ workout.nombre }}
+                </a>
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.pyc
+
+# Django
+db.sqlite3
+
+# Virtual Environment
+venv/
+env/
+.venv/
+
+# VSCode
+.vscode/
+
+# Logs
+*.log
+
+# FIT Files
+*.fit
+
+# Media
+media/
+
+# Static collected
+staticfiles/
+
+# Windows
+Thumbs.db
+
+# Archivos de prueba
+files/

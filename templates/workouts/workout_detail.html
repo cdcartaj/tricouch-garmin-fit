@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="mb-3">
+
+    <a
+        href="{% url 'workout_reparse' workout.id %}"
+        class="btn btn-warning">
+
+        Reparsear Entrenamiento
+
+    </a>
+
+</div>
+
+<h2>{{ workout.nombre }}</h2>
+
+<p>
+    {{ workout.get_deporte_display }}
+</p>
+
+<!-- Se muestran los bloques -->
+
+<h3>Bloques</h3>
+
+<ul>
+
+{% for block in workout.blocks.all %}
+
+<li>
+
+    {{ block.nombre }}
+
+    {% if block.repeticiones > 1 %}
+
+        ({{ block.repeticiones }}x)
+
+    {% endif %}
+
+</li>
+
+{% endfor %}
+
+</ul>
+
+<!-- Se construyen los Steps -->
+
+{% for step in workout.steps.all %}
+
+<div class="card mb-3">
+
+    <div class="card-body">
+
+        <h5>
+
+            {{ step.get_tipo_display }}
+
+        </h5>
+
+        {% if step.repeticiones > 1 %}
+            <p>
+                Repeticiones:
+                {{ step.repeticiones }}
+            </p>
+        {% endif %}
+
+        {% if step.distancia_metros %}
+            <p>
+                Distancia:
+                {{ step.distancia_metros }} m
+            </p>
+        {% endif %}
+
+        {% if step.duracion_segundos %}
+            <p>
+                Duración:
+                {{ step.duracion_segundos }} seg
+            </p>
+        {% endif %}
+
+        {% if step.ritmo_objetivo %}
+            <p>
+                Ritmo:
+                {{ step.ritmo_objetivo }}
+            </p>
+        {% endif %}
+
+        {% if step.zona %}
+            <p>
+                Zona:
+                {{ step.zona }}
+            </p>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+<a
+    href="{% url 'export_tcx' workout.id %}"
+    class="btn btn-success">
+
+    Exportar TCX
+
+</a>
+
+{% endblock %}

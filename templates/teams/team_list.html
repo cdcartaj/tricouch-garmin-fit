@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Equipos</h2>
+
+<table class="table table-striped">
+
+    <thead>
+
+        <tr>
+            <th>Nombre</th>
+            <th>Activo</th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for team in teams %}
+
+        <tr>
+
+            <td>
+                {{ team.nombre }}
+            </td>
+
+            <td>
+                {{ team.activo }}
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

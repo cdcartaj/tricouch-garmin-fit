@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Atletas</h2>
+
+<table class="table table-striped">
+
+    <thead>
+
+        <tr>
+            <th>Nombre</th>
+            <th>Team</th>
+            <th>FTP</th>
+            <th>FC Max</th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for athlete in athletes %}
+
+        <tr>
+
+            <td>{{ athlete }}</td>
+
+            <td>{{ athlete.team }}</td>
+
+            <td>{{ athlete.ftp }}</td>
+
+            <td>{{ athlete.fc_max }}</td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}
