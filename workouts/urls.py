@@ -29,10 +29,17 @@ urlpatterns = [
     ),
     
     path(
+        "<int:pk>/export/fit/",
+        views.export_fit,
+        name="export_fit"
+    ),
+    
+    path(
         "<int:pk>/reparse/",
         views.workout_reparse,
         name="workout_reparse"
     ),
     
     
+   
 ]

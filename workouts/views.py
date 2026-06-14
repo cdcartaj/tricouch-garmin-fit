@@ -15,7 +15,21 @@ from workouts.builders.block_builder import (
     BlockBuilder
 )
 
+from workouts.builders.structure_builder import (
+    WorkoutStructureBuilder
+)
 
+from workouts.builders.garmin_workout_builder import (
+    GarminWorkoutBuilder
+)
+
+from workouts.builders.garmin_message_builder import (
+    GarminMessageBuilder
+)
+
+from workouts.exporters.fit_exporter import (
+    FitExporter
+)
 
 def workout_list(request):
 
@@ -114,6 +128,68 @@ def export_tcx(request, pk):
     ] = (
         f'attachment; '
         f'filename="{workout.nombre}.tcx"'
+    )
+
+    return response
+
+def export_fit(request, pk):
+
+    workout = get_object_or_404(
+        Workout,
+        pk=pk
+    )
+
+    estructura = (
+        WorkoutStructureBuilder(
+            workout
+        ).build()
+    )
+
+    garmin_steps = (
+        GarminWorkoutBuilder().build(
+            estructura
+        )
+    )
+
+    mensajes = (
+        GarminMessageBuilder().build(
+            workout.nombre,
+            garmin_steps
+        )
+    )
+
+    filename = (
+        workout.nombre
+            .lower()
+            .replace(" ", "_")
+            + ".fit"
+    )
+
+    exporter = FitExporter()
+
+    exporter.export(
+        workout.nombre,
+        mensajes,
+        filename
+    )
+
+    with open(
+        filename,
+        "rb"
+    ) as f:
+
+        contenido = f.read()
+
+    response = HttpResponse(
+        contenido,
+        content_type="application/octet-stream"
+    )
+
+    response[
+        "Content-Disposition"
+    ] = (
+        f'attachment; '
+        f'filename="{filename}"'
     )
 
     return response
